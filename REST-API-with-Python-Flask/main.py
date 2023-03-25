@@ -1,8 +1,7 @@
 import pyodbc
-from flask import Flask
+from flask import Flask, render_template
 
 app = Flask(__name__)
-mgr = APIKeyManager(app)
 
 jsonified = []
 
@@ -15,6 +14,11 @@ def database_to_json():
     keys = [i[0] for i in cursor.execute('select * from Movies').description]
     for i in cursor.fetchall():
         jsonified.append(dict(zip(keys, i)))
+
+
+@app.route('/')
+def index():
+    return render_template('read_me.html')
 
 
 @app.route('/movies')
