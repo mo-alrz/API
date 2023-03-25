@@ -8,12 +8,119 @@
     <title>Rest API</title>
 </head>
 <body>
-    <h1> Currently working on a project using flask web framework of python building an API with
-        certain endpoints , for more information you can check the link below to see the instructions: </h1>
-
-    <a href="https://github.com/green-fox-academy/teaching-materials/blob/
-    automation-ibs/workshop/backend-api/python.md">https://github.com/green-fox-academy/teaching-materials/blob/
-        automation-ibs/workshop/backend-api/python.md</a>
+    <h3 dir="auto">Movies REST API</h3>
+<p dir="auto">Create a REST API to manage movie details. The movie descriptions must be stored in a database and the basic CRUD operation should be implemented on the data. The necessary endpoints are described below. All the endpoints must work with<code>json</code> requests and responses.</p>
+<h4 dir="auto"><br></h4>
+<h4 dir="auto">[GET] /api/movies</h4>
+<p dir="auto">This endpoint should return a json with all the movies from the database.</p>
+<h5 dir="auto"><br></h5>
+<h5 dir="auto">Response</h5>
+<div class="highlight highlight-source-json notranslate position-relative overflow-auto" dir="auto">
+    <pre>[
+    {
+        <span class="pl-ent">&quot;id&quot;</span>: <span class="pl-c1">1</span>,
+        <span class="pl-ent">&quot;title&quot;</span>: <span class="pl-s"><span class="pl-pds">&quot;</span>movie title<span class="pl-pds">&quot;</span></span>,
+        <span class="pl-ent">&quot;year&quot;</span>: <span class="pl-s"><span class="pl-pds">&quot;</span>year of release<span class="pl-pds">&quot;</span></span>,
+        <span class="pl-ent">&quot;genre&quot;</span>: <span class="pl-s"><span class="pl-pds">&quot;</span>genre of the movie<span class="pl-pds">&quot;</span></span>,
+        <span class="pl-ent">&quot;description&quot;</span>: <span class="pl-s"><span class="pl-pds">&quot;</span>a short description<span class="pl-pds">&quot;</span></span>
+    },
+    <span class="pl-ii">...</span>
+]</pre>
+</div>
+<h4 dir="auto"><br></h4>
+<h4 dir="auto">[GET] /api/movies/&lt;movie_id&gt;</h4>
+<p dir="auto">This endpoint should return a json with the selected movie&apos;s information.</p>
+<h5 dir="auto"><br></h5>
+<h5 dir="auto">Response</h5>
+<div class="highlight highlight-source-json notranslate position-relative overflow-auto" dir="auto">
+    <pre>{
+    <span class="pl-ent">&quot;id&quot;</span>: <span class="pl-ii">&lt;movie_id&gt;,</span>
+    <span class="pl-ent">&quot;title&quot;</span>: <span class="pl-s"><span class="pl-pds">&quot;</span>movie title<span class="pl-pds">&quot;</span></span>,
+    <span class="pl-ent">&quot;year&quot;</span>: <span class="pl-s"><span class="pl-pds">&quot;</span>year of release<span class="pl-pds">&quot;</span></span>,
+    <span class="pl-ent">&quot;genre&quot;</span>: <span class="pl-s"><span class="pl-pds">&quot;</span>genre of the movie<span class="pl-pds">&quot;</span></span>,
+    <span class="pl-ent">&quot;description&quot;</span>: <span class="pl-s"><span class="pl-pds">&quot;</span>a short description<span class="pl-pds">&quot;</span></span>
+}</pre>
+</div>
+<h4 dir="auto"><br></h4>
+<h4 dir="auto">[POST] /api/movies</h4>
+<p dir="auto">On this endpoint we can save a new movie to our database. Unfortunately we need to add some security to this endpoint since we cannot allow anybody to modify our database. So find out an <code>API_KEY</code> what you will save in a file or in a variable in your flask application. When somebody sends a request to this endpoint you will check if a correct <code>API_KEY</code> has been sent in the headers. If it is incorrect you will need to inform the user.</p>
+<h5 dir="auto"><br></h5>
+<h5 dir="auto">Request</h5>
+<p dir="auto">Required headers:</p>
+<ul dir="auto">
+    <li>API_KEY</li>
+</ul>
+<p dir="auto">Body:</p>
+<div class="highlight highlight-source-json notranslate position-relative overflow-auto" dir="auto">
+    <pre>{
+  <span class="pl-ent">&quot;title&quot;</span>: <span class="pl-s"><span class="pl-pds">&quot;</span>movie title<span class="pl-pds">&quot;</span></span>,
+  <span class="pl-ent">&quot;year&quot;</span>: <span class="pl-s"><span class="pl-pds">&quot;</span>year of release<span class="pl-pds">&quot;</span></span>,
+  <span class="pl-ent">&quot;genre&quot;</span>: <span class="pl-s"><span class="pl-pds">&quot;</span>genre of the movie<span class="pl-pds">&quot;</span></span>,
+  <span class="pl-ent">&quot;description&quot;</span>: <span class="pl-s"><span class="pl-pds">&quot;</span>a short description<span class="pl-pds">&quot;</span></span>
+}</pre>
+</div>
+<h5 dir="auto"><br></h5>
+<h5 dir="auto">Response in case of correct <code>API_KEY</code></h5>
+<p dir="auto">Status Code: 200</p>
+<p dir="auto">Body:</p>
+<div class="highlight highlight-source-json notranslate position-relative overflow-auto" dir="auto">
+    <pre>{
+  <span class="pl-ent">&quot;id&quot;</span>: <span class="pl-s"><span class="pl-pds">&quot;</span>the next available integer<span class="pl-pds">&quot;</span></span>,
+  <span class="pl-ent">&quot;title&quot;</span>: <span class="pl-s"><span class="pl-pds">&quot;</span>movie title<span class="pl-pds">&quot;</span></span>,
+  <span class="pl-ent">&quot;year&quot;</span>: <span class="pl-s"><span class="pl-pds">&quot;</span>year of release<span class="pl-pds">&quot;</span></span>,
+  <span class="pl-ent">&quot;genre&quot;</span>: <span class="pl-s"><span class="pl-pds">&quot;</span>genre of the movie<span class="pl-pds">&quot;</span></span>,
+  <span class="pl-ent">&quot;description&quot;</span>: <span class="pl-s"><span class="pl-pds">&quot;</span>a short description<span class="pl-pds">&quot;</span></span>
+}</pre>
+</div>
+<h5 dir="auto"><br></h5>
+<h5 dir="auto">Response in case of incorrect <code>API_KEY</code></h5>
+<p dir="auto">Status Code: 403</p>
+<p dir="auto">Body:</p>
+<div class="highlight highlight-source-json notranslate position-relative overflow-auto" dir="auto">
+    <pre>{
+  <span class="pl-ent">&quot;error&quot;</span>: <span class="pl-s"><span class="pl-pds">&quot;</span>Invalid API_KEY<span class="pl-pds">&quot;</span></span>
+}</pre>
+</div>
+<h4 dir="auto"><br></h4>
+<h4 dir="auto">[PUT] /api/movies/&lt;movie_id&gt;</h4>
+<p dir="auto">It works the same as the <code>[POST] /api/movies</code> endpoint but it replaces the the movie identified by <code>&lt;movie_id&gt;</code>. <code>API_KEY</code> is mandatory just like on the other endpoint. Additionally this endpoint returns a 404 if the given movie cannot be found.</p>
+<h5 dir="auto"><br></h5>
+<h5 dir="auto">Response if no movie found with the id</h5>
+<p dir="auto">Status Code: 404</p>
+<p dir="auto">Body:</p>
+<div class="highlight highlight-source-json notranslate position-relative overflow-auto" dir="auto">
+    <pre>{
+  <span class="pl-ent">&quot;error&quot;</span>: <span class="pl-s"><span class="pl-pds">&quot;</span>No movie found with &lt;movie_id&gt; ID<span class="pl-pds">&quot;</span></span>
+}</pre>
+</div>
+<h4 dir="auto"><br></h4>
+<h4 dir="auto">[DELETE] /api/movies/&lt;movie_id&gt;</h4>
+<p dir="auto">This works as the <code>PUT</code> endpoint, but this will delete the movie from the database. If no movie can be found with <code>&lt;movie_id&gt;</code> then returns 404 if the<code>API_KEY</code> is not correct then it returns 403 with the same response as the previous endpoints.</p>
+<h3 dir="auto"><br></h3>
+<h3 dir="auto">Movies GUI</h3>
+<p dir="auto">Now create a pretty GUI for the application to manage the data in a more user friendly way. The following pages should be implemented</p>
+<h4 dir="auto"><br></h4>
+<h4 dir="auto">/movies</h4>
+<p dir="auto">The page rendered on the <code>/movies</code> page should list all the movie titles from the database. If the user clicks on the title it must navigate to the<code>/edit-movie/&lt;movie_id&gt;</code> page.</p>
+<p dir="auto">At the top of the page you will need to add another link which points to the<code>/add-movie</code> page.</p>
+<h4 dir="auto"><br></h4>
+<h4 dir="auto">/add-movie</h4>
+<p dir="auto">This page must render a form, where the user can create a new movie entry. The form must have the following fields.</p>
+<ul dir="auto">
+    <li>title</li>
+    <li>year</li>
+    <li>genre</li>
+    <li>description</li>
+</ul>
+<p dir="auto">When the user clicks on the submit button, the values should be sent to the<code>[POST] /api/movies</code> endpoint</p>
+<p dir="auto"><strong>Hints:</strong></p>
+<ul dir="auto">
+    <li>The form wont send <code>json</code> so you need to change the API endpoint as well</li>
+    <li>You cannot set headers from a form, so you can add it as another input field</li>
+</ul>
+<h4 dir="auto"><br></h4>
+<h4 dir="auto">/edit-movie/&lt;movie_id&gt;</h4>
+<p dir="auto">This page must render a form like the <code>/add-movie</code> page, but now, this must send the request to the <code>[PUT] /api/movies/&lt;movie_id&gt;</code> endpoint.</p>
 
 </body>
 </html>
