@@ -1,5 +1,6 @@
 import pyodbc
-from flask import Flask, render_template
+from flask import Flask, render_template, request, jsonify
+# from flask_api_key import APIKeyManager
 
 app = Flask(__name__)
 
@@ -21,10 +22,30 @@ def index():
     return render_template('read_me.html')
 
 
-@app.route('/movies')
+@app.route('/movies', methods=['GET', 'POST'])
 def movies():
-    database_to_json()
-    return jsonified
+    if request.method == 'GET':
+        database_to_json()
+        return jsonified
+
+    if request.method == 'POST':
+        data = request.get_json(force=True)
+        director = data['director']
+        name = data['name']
+        genre = data['genre']
+        year = data['year']
+
+        connection = pyodbc.connect(r'Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=C:/Users/malir/'
+                                    r'desktop/API/REST-API-with-Python-Flask/movies.accdb')
+        cursor = connection.cursor()
+        cursor.execute('''
+            INSERT INTO Movies (Name, Director, Production_year, Genre)
+            VALUES (?, ?, ?, ?)
+        ''', (name, director, year, genre))
+
+        connection.commit()
+        database_to_json()
+        return jsonified
 
 
 @app.route('/movies/<int:movie_id>')
@@ -33,6 +54,10 @@ def movies_by_id(movie_id):
     for movie in jsonified:
         if movie["ID"] == movie_id:
             return movie
+
+    for movie in jsonified:
+        if movie["ID"] != movie_id:
+            return 'Invalid ID'
 
 
 if __name__ == '__main__':
