@@ -54,10 +54,8 @@ def movies_by_id(movie_id):
     for movie in jsonified:
         if movie["ID"] == movie_id:
             return movie
-
-    for movie in jsonified:
-        if movie["ID"] != movie_id:
-            return 'Invalid ID'
+        continue
+    return f'{movie_id} is an invalid ID in Database'
 
 
 if __name__ == '__main__':
