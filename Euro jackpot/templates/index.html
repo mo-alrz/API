@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="static/style.css">
+</head>
+<body>
+
+<h2>Euro-jackpot scraping project</h2>
+
+
+<form action="/submit" method='POST'>
+
+  <label for="Year">Year :</label><br>
+  <input type="number" id="year" name="year" min="2012" max="2023">
+  <script>
+    const yearInput = document.getElementById('year');
+
+    yearInput.addEventListener('input', () => {
+      if (yearInput.validity.rangeOverflow) {
+        yearInput.setCustomValidity('Year must be between 2012 and 2023');
+      } else {
+        yearInput.setCustomValidity('');
+      }
+    });
+  </script>
+
+  <label for="lookback">Lookback period :</label><br>
+  <input type="number" id="lookback" name="lookback" min="1" max="5">
+
+  <label for="country">Choose your country :</label>
+  <select id="country" name="country">
+    <option value="breakdown20">Croatia</option>
+    <option value="breakdown25">Czech Republic</option>
+    <option value="breakdown13">Denmark</option>
+    <option value="breakdown14">Estonia</option>
+    <option value="breakdown15">Finland</option>
+    <option value="breakdown19">Germany</option>
+    <option value="breakdown16">Iceland</option>
+    <option value="breakdown21">Italy</option>
+    <option value="breakdown11">Latvia</option>
+    <option value="breakdown12">Lithuania</option>
+    <option value="breakdown22">Netherlands</option>
+    <option value="breakdown17">Norway</option>
+    <option value="breakdown37">Poland</option>
+    <option value="breakdown23">Slovakia</option>
+    <option value="breakdown24">Slovenia</option>
+    <option value="breakdown4">Spain</option>
+    <option value="breakdown18">Sweden</option>
+    <option value="Hungary" selected>Hungary</option>
+  </select>
+
+  <label for="Numbers">Numbers :</label><br>
+  <input type="text" id="numbers" name="numbers" placeholder="xx-xx-xx-xx-xx"
+         pattern="\d{1,2}-\d{1,2}-\d{1,2}-\d{1,2}-\d{1,2}" maxlength="14"><br><br>
+  <script>
+
+    function goToPage() {
+      window.location.href = "http://127.0.0.1:5000";
+    }
+
+  </script>
+  
+  <input type="submit" value="Submit" onclick="goToPage()">
+  
+  
+</form>
+
+
+</body>
+</html>
