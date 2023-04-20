@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Result</title>
+    <link rel="stylesheet" type="text/css" href="static/style_result.css">
+    <script>
+        function goBackAndReload() {
+          window.location.href = document.referrer;
+          window.location.reload();
+        }
+    </script>
+
+</head>
+<body>
+    <table id="demo">
+        {% for r in results %}
+        <tr>
+          <td>{{ r[0] }}</td>
+          <td>{{ r[1] }}</td>
+        </tr>
+      {% endfor %}
+    </table>
+    <input type="button" value="If you need to go for another round please only use this BUTTON"
+           onclick="goBackAndReload()">
+</body>
+</html>
